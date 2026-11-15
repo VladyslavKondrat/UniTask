@@ -1,7 +1,15 @@
 using UniTask.ApplicationFulfillment.Domain.Entities;
+using UniTask.ApplicationFulfillment.Domain.Exceptions;
+using UniTask.ApplicationFulfillment.Domain.ValueObjects;
 using ApplicationTask = UniTask.ApplicationFulfillment.Domain.Entities.Task;
 
 namespace UniTask.ApplicationFulfillment.Domain.Aggregates;
+
+public interface IPlatformFeePolicy
+{
+    bool IsApplicable(Application application, StudentTier requesterTier);
+    Money CalculateFee(Application application, StudentTier requesterTier);
+}
 
 public sealed class Application
 {
@@ -21,6 +29,7 @@ public sealed class Application
     public Guid RequesterId { get; }
     public ApplicationStatus Status { get; private set; } = ApplicationStatus.Draft;
     public decimal TotalPrice => _tasks.Sum(task => task.Price);
+    public Money? ServiceFeeAmount { get; private set; }
     internal IReadOnlyCollection<ApplicationTask> Tasks => _tasks.AsReadOnly();
     internal IReadOnlyCollection<Payment> Payments => _payments.AsReadOnly();
 
@@ -81,5 +90,21 @@ public sealed class Application
     {
         if (Status != ApplicationStatus.Draft)
             throw new InvalidOperationException("Application can only be modified in Draft status.");
+    }
+    public void ApplyPlatformFee(IPlatformFeePolicy policy, StudentTier requesterTier)
+    {
+        ArgumentNullException.ThrowIfNull(policy);
+
+        if (Status != ApplicationStatus.Draft)
+            throw new ApplicationModificationForbiddenException(Id, Status);
+
+        if (!policy.IsApplicable(this, requesterTier))
+            throw new PlatformFeeNotApplicableException(Id);
+
+        var calculatedFee = policy.CalculateFee(this, requesterTier);
+        if (calculatedFee is null || calculatedFee.Amount < 0)
+            throw new InvalidFeeAmountException(calculatedFee?.Amount ?? -1);
+
+        ServiceFeeAmount = calculatedFee;
     }
 }
