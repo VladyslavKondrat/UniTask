@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using UniTask.TaskManagement.Domain.Entities;
 
-namespace UniTask.TaskManagement.Domain.Tests
+using UniTask.ApplicationFulfillment.Domain.Entities;
+
+namespace UniTask.ApplicationFulfillment.Domain.Tests
 {
     public class CardTests
     {
-
-
+        
         [Theory]
         [InlineData("3782 8224 6310 005")]
         [InlineData("4111 1111-1111 1111")]
@@ -31,13 +28,13 @@ namespace UniTask.TaskManagement.Domain.Tests
         }
 
         [Theory]
-        [InlineData("4111 1111 11")]
-        [InlineData("3782-8224-63")]
-        [InlineData("4111111")]
-        [InlineData("111")]
-        [InlineData("4111 1111 1111 1111 1116")]
-        [InlineData("4111-1111-1111-1111-1111-1")]
-        [InlineData("1111111111111111111111")]
+        [InlineData("4111 1111 11")]       
+        [InlineData("3782-8224-63")]    
+        [InlineData("4111111")]        
+        [InlineData("111")]        
+        [InlineData("4111 1111 1111 1111 1116")] 
+        [InlineData("4111-1111-1111-1111-1111-1")] 
+        [InlineData("1111111111111111111111")]  
         public void Check_Card_Digits_Amount_ShouldReturnWrongResult(string c)
         {
 
@@ -48,11 +45,11 @@ namespace UniTask.TaskManagement.Domain.Tests
             var result = testClass.ValidateCard(c);
 
             //assert
-            Assert.True(result);
+            Assert.False(result);
 
         }
 
-
+        
         [Theory]
         [InlineData("3782 8224 6310 005")]
         [InlineData("3782-8224-6310-005")]
@@ -91,19 +88,19 @@ namespace UniTask.TaskManagement.Domain.Tests
             var result = testClass.ValidateCard(c);
 
             //assert
-            Assert.True(result);
+            Assert.False(result);
 
         }
-
+        
 
         [Theory]
-        [InlineData("4111111111111111")]
-        [InlineData("4000000000000002")]
-        [InlineData("4532 0151 1283 0366")]
-        [InlineData("4111-1111-1111-1111")]
+        [InlineData("4111111111111111")] 
+        [InlineData("4000000000000002")] 
+        [InlineData("4532 0151 1283 0366")] 
+        [InlineData("4111-1111-1111-1111")] 
         [InlineData("3782 8224 6310 005")]
         [InlineData("371449635398431")]
-        [InlineData("4012888888881881")]
+        [InlineData("4012888888881881")] 
 
         public void Check_Card_Luhn_algorithm_ShouldReturnCorrectResult(string c)
         {
@@ -120,12 +117,12 @@ namespace UniTask.TaskManagement.Domain.Tests
         }
 
         [Theory]
-        [InlineData("4111111111111112")]
+        [InlineData("4111111111111112")] 
         [InlineData("4000000000000003")]
-        [InlineData("4532 0151 1283 0368")]
-        [InlineData("3782 8224 6310 009")]
-        [InlineData("371449635398430")]
-        [InlineData("4012888888881885")]
+        [InlineData("4532 0151 1283 0368")] 
+        [InlineData("3782 8224 6310 009")] 
+        [InlineData("371449635398430")] 
+        [InlineData("4012888888881885")] 
         public void Check_Card_Luhn_algorithm_ShouldReturnWrongResult(string c)
         {
 
@@ -136,7 +133,7 @@ namespace UniTask.TaskManagement.Domain.Tests
             var result = testClass.ValidateCard(c);
 
             //assert
-            Assert.True(result);
+            Assert.False(result);
 
         }
 
@@ -180,7 +177,7 @@ namespace UniTask.TaskManagement.Domain.Tests
             var result = testClass.GetCardType(cardNumber);
 
             //assert
-            Assert.Equal(cardType, result);
+            Assert.NotEqual(cardType, result);
 
         }
 
@@ -207,7 +204,7 @@ namespace UniTask.TaskManagement.Domain.Tests
             //assert
             Assert.Equal(cardType, result2);
             Assert.True(result1);
-
+            
 
         }
 
