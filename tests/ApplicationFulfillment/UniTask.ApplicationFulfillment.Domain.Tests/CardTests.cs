@@ -1,10 +1,7 @@
 
-using EShop.Application;
-using System.Runtime.Intrinsics.Arm;
-using System.Security.Principal;
-using System.Text.RegularExpressions;
+using UniTask.ApplicationFulfillment.Domain.Entities;
 
-namespace EShop.Application.Tests
+namespace UniTask.ApplicationFulfillment.Domain.Tests
 {
     public class CardTests
     {
