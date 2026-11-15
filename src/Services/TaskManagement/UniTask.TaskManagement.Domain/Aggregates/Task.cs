@@ -1,4 +1,3 @@
-using UniTask.TaskManagement.Domain.Entities;
 using UniTask.TaskManagement.Domain.Exceptions;
 using UniTask.TaskManagement.Domain.ValueObjects;
 
@@ -15,8 +14,6 @@ public sealed class Task
     }
 
     private const int MaxHoursAfterAssignment = 24;
-    private readonly List<Payment> _payments = new();
-
     public Guid Id { get; }
     public string Title { get; private set; }
     public string Description { get; private set; }
@@ -29,8 +26,6 @@ public sealed class Task
     public DateTime? PublishedAt { get; private set; }
     public DateTime? AssignedAt { get; private set; }
     public DateTime? TimeSubmitted { get; private set; }
-
-    internal IReadOnlyCollection<Payment> Payments => _payments.AsReadOnly();
 
     public Task(Guid id, string title, string description, decimal cost)
     {
@@ -106,23 +101,6 @@ public sealed class Task
     {
         Cost = new TaskCost(newCost);
     }
-    public void RecordPayment(Guid executorId)
-    {
-        if (executorId == Guid.Empty)
-            throw new ArgumentException("Executor ID cannot be empty.", nameof(executorId));
-
-        var payment = new Payment(executorId, Cost);
-        _payments.Add(payment);
-    }
-
-    public void ProcessPayments()
-    {
-        foreach (var payment in _payments.Where(p => !p.IsProcessed))
-        {
-            payment.MarkAsProcessed();
-        }
-    }
-
     public void SetAssignedTimeForTesting(DateTime assignedTime)
     {
         AssignedAt = assignedTime;

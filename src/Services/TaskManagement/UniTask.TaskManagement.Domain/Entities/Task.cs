@@ -18,8 +18,6 @@ namespace UniTask.TaskManagement.Domain.Entities
         }
 
         private const int MaxHoursAfterAssignment = 24;
-        private readonly List<Payment> _payments = new();
-
         public Guid Id { get; }
         public string Title { get; private set; }
         public string Description { get; private set; }
