@@ -13,7 +13,6 @@ public class ArchitectureTests
     {
         var paymentType = typeof(Payment);
 
-        // Payment type exists and is not public
         Assert.NotNull(paymentType);
         Assert.True(paymentType.IsNotPublic,
             "Payment should be internal (visible only within Domain layer)");
