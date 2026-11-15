@@ -117,24 +117,31 @@
     ]
   },
   "packageFolders": {
-    "/home/vscode/.nuget/packages/": {}
+    "C:\\Users\\user\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/workspaces/UniTask/src/Services/UserIdentity/UniTask.UserIdentity.Presentation/UniTask.UserIdentity.Presentation.csproj",
+      "projectUniqueName": "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\UserIdentity\\UniTask.UserIdentity.Presentation\\UniTask.UserIdentity.Presentation.csproj",
       "projectName": "UniTask.UserIdentity.Presentation",
-      "projectPath": "/workspaces/UniTask/src/Services/UserIdentity/UniTask.UserIdentity.Presentation/UniTask.UserIdentity.Presentation.csproj",
-      "packagesPath": "/home/vscode/.nuget/packages/",
-      "outputPath": "/workspaces/UniTask/src/Services/UserIdentity/UniTask.UserIdentity.Presentation/obj/",
+      "projectPath": "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\UserIdentity\\UniTask.UserIdentity.Presentation\\UniTask.UserIdentity.Presentation.csproj",
+      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\UserIdentity\\UniTask.UserIdentity.Presentation\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/home/vscode/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -142,8 +149,8 @@
           "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
-            "/workspaces/UniTask/src/Services/UserIdentity/UniTask.UserIdentity.Application/UniTask.UserIdentity.Application.csproj": {
-              "projectPath": "/workspaces/UniTask/src/Services/UserIdentity/UniTask.UserIdentity.Application/UniTask.UserIdentity.Application.csproj"
+            "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\UserIdentity\\UniTask.UserIdentity.Application\\UniTask.UserIdentity.Application.csproj": {
+              "projectPath": "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\UserIdentity\\UniTask.UserIdentity.Application\\UniTask.UserIdentity.Application.csproj"
             }
           }
         }
@@ -158,7 +165,7 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.400"
+      "SdkAnalysisLevel": "11.0.100"
     },
     "frameworks": {
       "net10.0": {
@@ -189,7 +196,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/10.0.403/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\11.0.100-rc.3.26522.148/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

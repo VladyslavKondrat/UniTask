@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "/workspaces/UniTask/src/Services/ApplicationFulfillment/UniTask.ApplicationFulfillment.Domain/UniTask.ApplicationFulfillment.Domain.csproj": {}
+    "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\ApplicationFulfillment\\UniTask.ApplicationFulfillment.Domain\\UniTask.ApplicationFulfillment.Domain.csproj": {}
   },
   "projects": {
-    "/workspaces/UniTask/src/Services/ApplicationFulfillment/UniTask.ApplicationFulfillment.Domain/UniTask.ApplicationFulfillment.Domain.csproj": {
+    "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\ApplicationFulfillment\\UniTask.ApplicationFulfillment.Domain\\UniTask.ApplicationFulfillment.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/workspaces/UniTask/src/Services/ApplicationFulfillment/UniTask.ApplicationFulfillment.Domain/UniTask.ApplicationFulfillment.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\ApplicationFulfillment\\UniTask.ApplicationFulfillment.Domain\\UniTask.ApplicationFulfillment.Domain.csproj",
         "projectName": "UniTask.ApplicationFulfillment.Domain",
-        "projectPath": "/workspaces/UniTask/src/Services/ApplicationFulfillment/UniTask.ApplicationFulfillment.Domain/UniTask.ApplicationFulfillment.Domain.csproj",
-        "packagesPath": "/home/vscode/.nuget/packages/",
-        "outputPath": "/workspaces/UniTask/src/Services/ApplicationFulfillment/UniTask.ApplicationFulfillment.Domain/obj/",
+        "projectPath": "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\ApplicationFulfillment\\UniTask.ApplicationFulfillment.Domain\\UniTask.ApplicationFulfillment.Domain.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\ApplicationFulfillment\\UniTask.ApplicationFulfillment.Domain\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/vscode/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -39,7 +45,7 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.400"
+        "SdkAnalysisLevel": "11.0.100"
       },
       "frameworks": {
         "net10.0": {
@@ -61,7 +67,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/10.0.403/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\11.0.100-rc.3.26522.148/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",

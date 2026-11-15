@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "/workspaces/UniTask/src/Services/TaskManagement/UniTask.TaskManagement.Presentation/UniTask.TaskManagement.Presentation.csproj": {}
+    "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\TaskManagement\\UniTask.TaskManagement.Presentation\\UniTask.TaskManagement.Presentation.csproj": {}
   },
   "projects": {
-    "/workspaces/UniTask/src/Services/TaskManagement/UniTask.TaskManagement.Application/UniTask.TaskManagement.Application.csproj": {
+    "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\TaskManagement\\UniTask.TaskManagement.Application\\UniTask.TaskManagement.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/workspaces/UniTask/src/Services/TaskManagement/UniTask.TaskManagement.Application/UniTask.TaskManagement.Application.csproj",
+        "projectUniqueName": "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\TaskManagement\\UniTask.TaskManagement.Application\\UniTask.TaskManagement.Application.csproj",
         "projectName": "UniTask.TaskManagement.Application",
-        "projectPath": "/workspaces/UniTask/src/Services/TaskManagement/UniTask.TaskManagement.Application/UniTask.TaskManagement.Application.csproj",
-        "packagesPath": "/home/vscode/.nuget/packages/",
-        "outputPath": "/workspaces/UniTask/src/Services/TaskManagement/UniTask.TaskManagement.Application/obj/",
+        "projectPath": "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\TaskManagement\\UniTask.TaskManagement.Application\\UniTask.TaskManagement.Application.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\TaskManagement\\UniTask.TaskManagement.Application\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/vscode/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -27,8 +33,8 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "/workspaces/UniTask/src/Services/TaskManagement/UniTask.TaskManagement.Domain/UniTask.TaskManagement.Domain.csproj": {
-                "projectPath": "/workspaces/UniTask/src/Services/TaskManagement/UniTask.TaskManagement.Domain/UniTask.TaskManagement.Domain.csproj"
+              "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\TaskManagement\\UniTask.TaskManagement.Domain\\UniTask.TaskManagement.Domain.csproj": {
+                "projectPath": "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\TaskManagement\\UniTask.TaskManagement.Domain\\UniTask.TaskManagement.Domain.csproj"
               }
             }
           }
@@ -43,7 +49,7 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.400"
+        "SdkAnalysisLevel": "11.0.100"
       },
       "frameworks": {
         "net10.0": {
@@ -65,7 +71,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/10.0.403/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\11.0.100-rc.3.26522.148/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -343,22 +349,28 @@
         }
       }
     },
-    "/workspaces/UniTask/src/Services/TaskManagement/UniTask.TaskManagement.Domain/UniTask.TaskManagement.Domain.csproj": {
+    "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\TaskManagement\\UniTask.TaskManagement.Domain\\UniTask.TaskManagement.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/workspaces/UniTask/src/Services/TaskManagement/UniTask.TaskManagement.Domain/UniTask.TaskManagement.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\TaskManagement\\UniTask.TaskManagement.Domain\\UniTask.TaskManagement.Domain.csproj",
         "projectName": "UniTask.TaskManagement.Domain",
-        "projectPath": "/workspaces/UniTask/src/Services/TaskManagement/UniTask.TaskManagement.Domain/UniTask.TaskManagement.Domain.csproj",
-        "packagesPath": "/home/vscode/.nuget/packages/",
-        "outputPath": "/workspaces/UniTask/src/Services/TaskManagement/UniTask.TaskManagement.Domain/obj/",
+        "projectPath": "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\TaskManagement\\UniTask.TaskManagement.Domain\\UniTask.TaskManagement.Domain.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\TaskManagement\\UniTask.TaskManagement.Domain\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/vscode/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -378,7 +390,7 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.400"
+        "SdkAnalysisLevel": "11.0.100"
       },
       "frameworks": {
         "net10.0": {
@@ -400,7 +412,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/10.0.403/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\11.0.100-rc.3.26522.148/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -678,22 +690,28 @@
         }
       }
     },
-    "/workspaces/UniTask/src/Services/TaskManagement/UniTask.TaskManagement.Presentation/UniTask.TaskManagement.Presentation.csproj": {
+    "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\TaskManagement\\UniTask.TaskManagement.Presentation\\UniTask.TaskManagement.Presentation.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/workspaces/UniTask/src/Services/TaskManagement/UniTask.TaskManagement.Presentation/UniTask.TaskManagement.Presentation.csproj",
+        "projectUniqueName": "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\TaskManagement\\UniTask.TaskManagement.Presentation\\UniTask.TaskManagement.Presentation.csproj",
         "projectName": "UniTask.TaskManagement.Presentation",
-        "projectPath": "/workspaces/UniTask/src/Services/TaskManagement/UniTask.TaskManagement.Presentation/UniTask.TaskManagement.Presentation.csproj",
-        "packagesPath": "/home/vscode/.nuget/packages/",
-        "outputPath": "/workspaces/UniTask/src/Services/TaskManagement/UniTask.TaskManagement.Presentation/obj/",
+        "projectPath": "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\TaskManagement\\UniTask.TaskManagement.Presentation\\UniTask.TaskManagement.Presentation.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\TaskManagement\\UniTask.TaskManagement.Presentation\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/vscode/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -701,8 +719,8 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "/workspaces/UniTask/src/Services/TaskManagement/UniTask.TaskManagement.Application/UniTask.TaskManagement.Application.csproj": {
-                "projectPath": "/workspaces/UniTask/src/Services/TaskManagement/UniTask.TaskManagement.Application/UniTask.TaskManagement.Application.csproj"
+              "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\TaskManagement\\UniTask.TaskManagement.Application\\UniTask.TaskManagement.Application.csproj": {
+                "projectPath": "C:\\Users\\user\\source\\repos\\Electronics_shop_Prog_Project\\src\\Services\\TaskManagement\\UniTask.TaskManagement.Application\\UniTask.TaskManagement.Application.csproj"
               }
             }
           }
@@ -717,7 +735,7 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.400"
+        "SdkAnalysisLevel": "11.0.100"
       },
       "frameworks": {
         "net10.0": {
@@ -748,7 +766,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/10.0.403/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\11.0.100-rc.3.26522.148/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

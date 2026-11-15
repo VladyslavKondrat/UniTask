@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using UniTask.TaskManagement.Domain.Entities;
 using UniTask.TaskManagement.Domain.Exceptions;
 using UniTask.TaskManagement.Domain.ValueObjects;
 
 namespace UniTask.TaskManagement.Domain.Aggregates;
-
 public sealed class Task
 {
     public enum TaskStatus
@@ -22,10 +18,11 @@ public sealed class Task
     private readonly List<Payment> _payments = new();
 
     public Guid Id { get; }
-    public string Title { get; private set; } = string.Empty;
-    public string Description { get; private set; } = string.Empty;
+    public string Title { get; private set; }
+    public string Description { get; private set; }
 
-    public TaskCost Cost { get; private set; } = null!;
+    public TaskCost Cost { get; private set; }
+
     public TaskStatus Status { get; private set; }
     public Guid? AssignedExecutorId { get; private set; }
     public DateTime CreatedAt { get; }
@@ -33,12 +30,7 @@ public sealed class Task
     public DateTime? AssignedAt { get; private set; }
     public DateTime? TimeSubmitted { get; private set; }
 
-    public IReadOnlyCollection<object> Payments => (_payments ?? new List<Payment>()).Cast<object>().ToList().AsReadOnly();
-
-    public Task()
-    {
-        _payments = new List<Payment>();
-    }
+    internal IReadOnlyCollection<Payment> Payments => _payments.AsReadOnly();
 
     public Task(Guid id, string title, string description, decimal cost)
     {
@@ -57,7 +49,6 @@ public sealed class Task
         Cost = new TaskCost(cost);
         Status = TaskStatus.Draft;
         CreatedAt = DateTime.UtcNow;
-        _payments = new List<Payment>();
     }
 
     public void PublishTask()
@@ -115,7 +106,6 @@ public sealed class Task
     {
         Cost = new TaskCost(newCost);
     }
-
     public void RecordPayment(Guid executorId)
     {
         if (executorId == Guid.Empty)

@@ -37,3 +37,8 @@ C:\Users\user\source\repos\Electronics_shop_Prog_Project\src\Services\TaskManage
 C:\Users\user\source\repos\Electronics_shop_Prog_Project\src\Services\TaskManagement\UniTask.TaskManagement.Presentation\obj\Debug\net10.0\UniTask.TaskManagement.Presentation.genruntimeconfig.cache
 C:\Users\user\source\repos\Electronics_shop_Prog_Project\src\Services\TaskManagement\UniTask.TaskManagement.Presentation\obj\Debug\net10.0\ref\UniTask.TaskManagement.Presentation.dll
 C:\Users\user\source\repos\Electronics_shop_Prog_Project\src\Services\TaskManagement\UniTask.TaskManagement.Presentation\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
+C:\Users\user\source\repos\Electronics_shop_Prog_Project\src\Services\TaskManagement\UniTask.TaskManagement.Presentation\obj\Debug\net10.0\dotnet-watch\Microsoft.NET.Sdk.BlazorWeb.DotNetWatch.lib.module.js
+C:\Users\user\source\repos\Electronics_shop_Prog_Project\src\Services\TaskManagement\UniTask.TaskManagement.Presentation\obj\Debug\net10.0\dotnet-watch\Microsoft.NET.Sdk.BlazorWeb.DotNetWatch.BrowserTools.js
+C:\Users\user\source\repos\Electronics_shop_Prog_Project\src\Services\TaskManagement\UniTask.TaskManagement.Presentation\obj\Debug\net10.0\dotnet-watch\Microsoft.NET.Sdk.BlazorWeb.DotNetWatch.BrowserTools.Config.js
+C:\Users\user\source\repos\Electronics_shop_Prog_Project\src\Services\TaskManagement\UniTask.TaskManagement.Presentation\obj\Debug\net10.0\dotnet-watch\browser-tools-key.public.json
+C:\Users\user\source\repos\Electronics_shop_Prog_Project\src\Services\TaskManagement\UniTask.TaskManagement.Presentation\obj\Debug\net10.0\dotnet-watch\browser-tools-key.private.json

@@ -1,9 +1,6 @@
-using System;
 using UniTask.TaskManagement.Domain.ValueObjects;
 
 namespace UniTask.TaskManagement.Domain.Entities;
-
-
 internal sealed class Payment
 {
     public Guid Id { get; }
@@ -26,7 +23,6 @@ internal sealed class Payment
         RecordedAt = DateTime.UtcNow;
         IsProcessed = false;
     }
-
     internal void MarkAsProcessed()
     {
         IsProcessed = true;
