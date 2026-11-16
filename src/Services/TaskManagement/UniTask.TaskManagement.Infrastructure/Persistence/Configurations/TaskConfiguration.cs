@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using UniTask.TaskManagement.Domain.Entities;
 using TaskAggregate = UniTask.TaskManagement.Domain.Aggregates.Task;
 
 namespace UniTask.TaskManagement.Infrastructure.Persistence.Configurations;
@@ -47,35 +46,5 @@ internal sealed class TaskConfiguration : IEntityTypeConfiguration<TaskAggregate
         builder.Property(t => t.AssignedAt);
         builder.Property(t => t.TimeSubmitted);
 
-        builder.Ignore(t => t.Payments);
-
-        builder.OwnsMany<Payment>("_payments", paymentBuilder =>
-        {
-            paymentBuilder.ToTable("Payments", schema: "taskmanagement");
-
-            paymentBuilder.WithOwner().HasForeignKey("TaskId");
-
-            paymentBuilder.HasKey(p => p.Id);
-
-            paymentBuilder.Property(p => p.Id)
-                .ValueGeneratedNever();
-
-            paymentBuilder.Property(p => p.ExecutorId)
-                .IsRequired();
-
-            paymentBuilder.OwnsOne(p => p.Cost, costBuilder =>
-            {
-                costBuilder.Property(c => c.Amount)
-                    .HasColumnName("Cost")
-                    .HasPrecision(18, 2)
-                    .IsRequired();
-            });
-
-            paymentBuilder.Property(p => p.RecordedAt)
-                .IsRequired();
-
-            paymentBuilder.Property(p => p.IsProcessed)
-                .IsRequired();
-        });
     }
 }

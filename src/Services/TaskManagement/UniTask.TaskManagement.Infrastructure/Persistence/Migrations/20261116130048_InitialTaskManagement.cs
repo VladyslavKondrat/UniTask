@@ -35,36 +35,6 @@ namespace UniTask.TaskManagement.Infrastructure.Persistence.Migrations
                     table.PrimaryKey("PK_Tasks", x => x.Id);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Payments",
-                schema: "taskmanagement",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Cost = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
-                    ExecutorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RecordedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsProcessed = table.Column<bool>(type: "bit", nullable: false),
-                    TaskId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Payments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Payments_Tasks_TaskId",
-                        column: x => x.TaskId,
-                        principalSchema: "taskmanagement",
-                        principalTable: "Tasks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Payments_TaskId",
-                schema: "taskmanagement",
-                table: "Payments",
-                column: "TaskId");
-
             migrationBuilder.CreateIndex(
                 name: "IX_Tasks_AssignedExecutorId",
                 schema: "taskmanagement",
@@ -75,10 +45,6 @@ namespace UniTask.TaskManagement.Infrastructure.Persistence.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Payments",
-                schema: "taskmanagement");
-
             migrationBuilder.DropTable(
                 name: "Tasks",
                 schema: "taskmanagement");

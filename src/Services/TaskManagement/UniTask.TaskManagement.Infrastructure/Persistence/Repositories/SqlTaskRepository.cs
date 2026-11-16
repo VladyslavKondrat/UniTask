@@ -20,7 +20,6 @@ internal sealed class SqlTaskRepository : ITaskRepository
     public async Task<DomainTask?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return await _dbContext.Tasks
-            .Include("_payments")
             .FirstOrDefaultAsync(t => t.Id == id, cancellationToken);
     }
 
@@ -28,7 +27,6 @@ internal sealed class SqlTaskRepository : ITaskRepository
     {
         return await _dbContext.Tasks
             .AsNoTracking()
-            .Include("_payments")
             .ToListAsync(cancellationToken);
     }
 

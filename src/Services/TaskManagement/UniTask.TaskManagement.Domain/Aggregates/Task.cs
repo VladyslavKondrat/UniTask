@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using UniTask.TaskManagement.Domain.Entities;
 using UniTask.TaskManagement.Domain.Exceptions;
 using UniTask.TaskManagement.Domain.ValueObjects;
 
@@ -19,13 +15,12 @@ public sealed class Task
     }
 
     private const int MaxHoursAfterAssignment = 24;
-    private readonly List<Payment> _payments = new();
 
     public Guid Id { get; private set; }
     public string Title { get; private set; } = string.Empty;
     public string Description { get; private set; } = string.Empty;
 
-    public TaskCost Cost { get; private set; } = null!;  //save those, everything that will be in db, should be an entity
+    public TaskCost Cost { get; private set; } = null!;
     public TaskStatus Status { get; private set; }
     public Guid? AssignedExecutorId { get; private set; }
     public DateTime CreatedAt { get; private set; }
@@ -33,11 +28,8 @@ public sealed class Task
     public DateTime? AssignedAt { get; private set; }
     public DateTime? TimeSubmitted { get; private set; }
 
-    public IReadOnlyCollection<object> Payments => (_payments ?? new List<Payment>()).Cast<object>().ToList().AsReadOnly();
-
     private Task()
     {
-        _payments = new List<Payment>();
     }
 
     public Task(Guid id, string title, string description, decimal cost)
@@ -57,7 +49,6 @@ public sealed class Task
         Cost = new TaskCost(cost);
         Status = TaskStatus.Draft;
         CreatedAt = DateTime.UtcNow;
-        _payments = new List<Payment>();
     }
 
     public void PublishTask()
@@ -114,23 +105,6 @@ public sealed class Task
     public void UpdateCost(decimal newCost)
     {
         Cost = new TaskCost(newCost);
-    }
-
-    public void RecordPayment(Guid executorId)
-    {
-        if (executorId == Guid.Empty)
-            throw new ArgumentException("Executor ID cannot be empty.", nameof(executorId));
-
-        var payment = new Payment(executorId, Cost);
-        _payments.Add(payment);
-    }
-
-    public void ProcessPayments()
-    {
-        foreach (var payment in _payments.Where(p => !p.IsProcessed))
-        {
-            payment.MarkAsProcessed();
-        }
     }
 
     public void SetAssignedTimeForTesting(DateTime assignedTime)

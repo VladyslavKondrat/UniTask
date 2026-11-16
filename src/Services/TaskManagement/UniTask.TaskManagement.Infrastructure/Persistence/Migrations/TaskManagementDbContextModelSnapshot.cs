@@ -84,58 +84,8 @@ namespace UniTask.TaskManagement.Infrastructure.Persistence.Migrations
                                 .HasForeignKey("TaskId");
                         });
 
-                    b.OwnsMany("UniTask.TaskManagement.Domain.Entities.Payment", "_payments", b1 =>
-                        {
-                            b1.Property<Guid>("Id")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<Guid>("ExecutorId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<bool>("IsProcessed")
-                                .HasColumnType("bit");
-
-                            b1.Property<DateTime>("RecordedAt")
-                                .HasColumnType("datetime2");
-
-                            b1.Property<Guid>("TaskId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.HasKey("Id");
-
-                            b1.HasIndex("TaskId");
-
-                            b1.ToTable("Payments", "taskmanagement");
-
-                            b1.WithOwner()
-                                .HasForeignKey("TaskId");
-
-                            b1.OwnsOne("UniTask.TaskManagement.Domain.ValueObjects.TaskCost", "Cost", b2 =>
-                                {
-                                    b2.Property<Guid>("PaymentId")
-                                        .HasColumnType("uniqueidentifier");
-
-                                    b2.Property<decimal>("Amount")
-                                        .HasPrecision(18, 2)
-                                        .HasColumnType("decimal(18,2)")
-                                        .HasColumnName("Cost");
-
-                                    b2.HasKey("PaymentId");
-
-                                    b2.ToTable("Payments", "taskmanagement");
-
-                                    b2.WithOwner()
-                                        .HasForeignKey("PaymentId");
-                                });
-
-                            b1.Navigation("Cost")
-                                .IsRequired();
-                        });
-
                     b.Navigation("Cost")
                         .IsRequired();
-
-                    b.Navigation("_payments");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,2 +1,6 @@
 ﻿.vs/
 .devcontainer
+
+# Build output
+bin/
+obj/
