@@ -6,11 +6,16 @@ namespace UniTask.TaskManagement.Domain.Entities;
 
 internal sealed class Payment
 {
-    public Guid Id { get; }
-    public TaskCost Cost { get; }
-    public Guid ExecutorId { get; }
-    public DateTime RecordedAt { get; }
+    public Guid Id { get; private set; }
+    public TaskCost Cost { get; private set; } = null!;
+    public Guid ExecutorId { get; private set; }
+    public DateTime RecordedAt { get; private set; }
     public bool IsProcessed { get; private set; }
+
+    private Payment()
+    {
+        Cost = null!;
+    }
 
     internal Payment(Guid executorId, TaskCost cost)
     {

@@ -21,21 +21,21 @@ public sealed class Task
     private const int MaxHoursAfterAssignment = 24;
     private readonly List<Payment> _payments = new();
 
-    public Guid Id { get; }
+    public Guid Id { get; private set; }
     public string Title { get; private set; } = string.Empty;
     public string Description { get; private set; } = string.Empty;
 
     public TaskCost Cost { get; private set; } = null!;  //save those, everything that will be in db, should be an entity
     public TaskStatus Status { get; private set; }
     public Guid? AssignedExecutorId { get; private set; }
-    public DateTime CreatedAt { get; }
+    public DateTime CreatedAt { get; private set; }
     public DateTime? PublishedAt { get; private set; }
     public DateTime? AssignedAt { get; private set; }
     public DateTime? TimeSubmitted { get; private set; }
 
     public IReadOnlyCollection<object> Payments => (_payments ?? new List<Payment>()).Cast<object>().ToList().AsReadOnly();
 
-    public Task()
+    private Task()
     {
         _payments = new List<Payment>();
     }

@@ -1,9 +1,16 @@
 using UniTask.TaskManagement.Infrastructure;
+using UniTask.TaskManagement.Application.Contracts;
+using UniTask.TaskManagement.Application.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
 builder.Services.AddOpenApi();
+
+builder.Services.AddScoped<ITaskApplicationService, TaskApplicationService>();
+
+builder.Services.AddTaskManagementInfrastructure(builder.Configuration);
 
 builder.Services.AddTaskManagementInfrastructure(builder.Configuration);
 

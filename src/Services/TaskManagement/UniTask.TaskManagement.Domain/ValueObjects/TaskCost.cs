@@ -8,8 +8,11 @@ public sealed class TaskCost : IEquatable<TaskCost>
     private const decimal MinCost = 0.01m;
     private const decimal MaxCost = 100000m;
 
-    public decimal Amount { get; }
-
+    public decimal Amount { get; private set; }
+    
+    private TaskCost()
+    {
+    }
 
     public TaskCost(decimal amount)
     {
