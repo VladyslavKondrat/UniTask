@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using UniTask.TaskManagement.Application.Contracts;
 using UniTask.TaskManagement.Infrastructure.Persistence;
 using UniTask.TaskManagement.Infrastructure.Persistence.Repositories;
+using UniTask.TaskManagement.Infrastructure.Persistence.Seeders;
 
 namespace UniTask.TaskManagement.Infrastructure;
 
@@ -37,6 +38,7 @@ public static class DependencyInjection
         });
 
         services.AddScoped<ITaskRepository, SqlTaskRepository>();
+        services.AddScoped<ITaskManagementDataSeeder, TaskManagementDataSeeder>();
 
         return services;
     }
