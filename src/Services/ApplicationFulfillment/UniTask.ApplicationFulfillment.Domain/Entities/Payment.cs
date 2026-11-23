@@ -2,13 +2,13 @@ namespace UniTask.ApplicationFulfillment.Domain.Entities;
 
 internal sealed class Payment
 {
-    public Guid Id { get; } = Guid.NewGuid();
-    public Guid ApplicationId { get; }
-    public Guid PayerId { get; }
-    public decimal Amount { get; }
-    public string CardType { get; }
-    public DateTime RecordedAt { get; } = DateTime.UtcNow;
-    public bool IsProcessed { get; private set; }
+    private Guid Id { get; } = Guid.NewGuid();
+    private Guid ApplicationId { get; }
+    private Guid PayerId { get; }
+    private decimal Amount { get; }
+    private string CardType { get; }
+    private DateTime RecordedAt { get; } = DateTime.UtcNow;
+    private bool IsProcessed { get; private set; }
 
     internal Payment(Guid applicationId, Guid payerId, decimal amount, string cardType)
     {

@@ -2,10 +2,10 @@ namespace UniTask.ApplicationFulfillment.Domain.Entities;
 
 internal sealed class Task
 {
-    public Guid Id { get; }
-    public string Title { get; }
-    public string Description { get; }
-    public decimal Price { get; }
+    private Guid Id { get; }
+    private string Title { get; }
+    private string Description { get; }
+    private decimal Price { get; }
 
     internal Task(Guid id, string title, string description, decimal price)
     {
