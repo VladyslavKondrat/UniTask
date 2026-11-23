@@ -1,0 +1,8 @@
+1. Verify that AGENTS.md / .github/copilot-instructions.md is active: 
+expand the References section above the model's response in chat – you should see AGENTS.md or .github/copilot-instructions.md listed.
+
+2. Explicitly pin specification files using #file: (or @ in other agents): Instead of typing "Build the translator according to the docs", reference the exact files:
+
+"Based on the rules in #file:AGENTS.md, the specification in #file:docs/architecture/context-map.md, and the Value Objects defined in #file:docs/architecture/aggregates-and-invariants.md, prepare..."
+
+3. Pin existing base classes from .Domain: If your project already contains DomainException.cs and Value Objects like Money.cs or Sku.cs from Lab 3, attach #file:DomainException.cs so the AI uses the exact constructor signatures instead of guessing parameters.
