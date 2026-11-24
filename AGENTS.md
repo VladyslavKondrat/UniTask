@@ -7,8 +7,7 @@ The solution is organized into Bounded Contexts, each containing four layers: `D
 ## 2. Build, Test, and Run Commands
 Always run these commands to verify changes before finishing a task:
 - **Restore & Build:** `dotnet build --configuration Release`
-- **Run Unit Tests:** `dotnet test tests/UnitTests --no-build`
-- **Run Integration Tests:** `dotnet test tests/IntegrationTests`
+- **Run Tests:** `dotnet test UniTask.slnx --configuration Release --no-build`
 - **Format Code:** `dotnet format --verify-no-changes`
 - **Add EF Core Migration (example for a specific context):**
   `dotnet ef migrations add <MigrationName> --project src/Modules/<Context>/<Context>.Infrastructure --startup-project src/Host`
