@@ -30,7 +30,7 @@ Always run these commands to verify changes before finishing a task:
 ## 5. Testing Guidelines
 - Follow TDD practices for Core domain logic: write/update `xUnit` unit tests covering state transitions and invariants before or alongside implementation.
 - Unit tests for `Domain` MUST NOT require a database, `DbContext`, or network access.
-- Name tests clearly using the convention: `MethodName_StateUnderTest_ExpectedBehavior`.
+- Name tests clearly using the convention defined in section 9.
 
 ## 6. Documentation & Git Workflow
 - Architectural decisions must be recorded in `docs/architecture/adr/` (see existing ADRs before proposing structural changes).
