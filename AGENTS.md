@@ -9,8 +9,7 @@ Always run these commands to verify changes before finishing a task:
 - **Restore & Build:** `dotnet build --configuration Release`
 - **Run Tests:** `dotnet test UniTask.slnx --configuration Release --no-build`
 - **Format Code:** `dotnet format --verify-no-changes`
-- **Add EF Core Migration (example for a specific context):**
-  `dotnet ef migrations add <MigrationName> --project src/Modules/<Context>/<Context>.Infrastructure --startup-project src/Host`
+- **EF Core Migrations (when persistence is added):** Infrastructure and startup projects are not yet configured. Document a context-specific migration command once they exist; create migrations only when needed, not as a routine verification step.
 
 ## 3. Architecture & Domain Boundaries (Strict Rules)
 - **No Cross-Context References:** Modules MUST NOT reference another module's `Domain`, `Application`, or `Infrastructure` projects directly. Communicate only via public contracts/facades or domain events.
