@@ -17,7 +17,7 @@ Always run these commands to verify changes before finishing a task:
 - **Module Microarchitecture:**
   - **Core Subdomains:** Use Rich Domain Model (Aggregates, Value Objects, Domain Events) with Clean/Hexagonal Architecture. Keep domain entities free of EF Core or serialization attributes.
   - **Supporting / Generic Subdomains:** Keep simple (Transaction Script / Active Record). Do not overengineer with unnecessary aggregates or ports.
-- **Anti-Corruption Layer (ACL):** External integrations with incompatible or legacy models must be isolated behind a port interface in `Application/Ports` and translated inside `Infrastructure/Acl`. Never leak external DTOs or error codes into `Domain` or `Application`.
+- **Anti-Corruption Layer (ACL):** External integrations with incompatible or legacy models must be isolated behind a port interface owned by the layer specified in `docs/architecture/context-map.md` (`Domain/Ports` for `IUniversityBillingPort`) and translated inside `Infrastructure/Acl`. Never leak external DTOs or error codes into `Domain` or `Application`.
 - **Shared Kernel:** Only small, immutable Value Objects (e.g., `Money`, `Currency`) belong in `SharedKernel`. Never add entities, aggregates, or external package dependencies there.
 
 ## 4. Coding Conventions (.NET / C#)
