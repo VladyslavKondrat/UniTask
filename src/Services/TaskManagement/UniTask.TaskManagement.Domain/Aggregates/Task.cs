@@ -2,6 +2,7 @@ using UniTask.TaskManagement.Domain.Exceptions;
 using UniTask.TaskManagement.Domain.ValueObjects;
 
 namespace UniTask.TaskManagement.Domain.Aggregates;
+
 public sealed class Task
 {
     public enum TaskStatus
@@ -14,18 +15,22 @@ public sealed class Task
     }
 
     private const int MaxHoursAfterAssignment = 24;
-    public Guid Id { get; }
-    public string Title { get; private set; }
-    public string Description { get; private set; }
 
-    public TaskCost Cost { get; private set; }
+    public Guid Id { get; private set; }
+    public string Title { get; private set; } = string.Empty;
+    public string Description { get; private set; } = string.Empty;
 
+    public TaskCost Cost { get; private set; } = null!;
     public TaskStatus Status { get; private set; }
     public Guid? AssignedExecutorId { get; private set; }
-    public DateTime CreatedAt { get; }
+    public DateTime CreatedAt { get; private set; }
     public DateTime? PublishedAt { get; private set; }
     public DateTime? AssignedAt { get; private set; }
     public DateTime? TimeSubmitted { get; private set; }
+
+    private Task()
+    {
+    }
 
     public Task(Guid id, string title, string description, decimal cost)
     {
@@ -101,6 +106,7 @@ public sealed class Task
     {
         Cost = new TaskCost(newCost);
     }
+
     public void SetAssignedTimeForTesting(DateTime assignedTime)
     {
         AssignedAt = assignedTime;
