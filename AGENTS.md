@@ -1,106 +1,113 @@
 # AGENTS.md
 
-## 1. Project Overview
-`UniTask` is a modular monolith built with .NET 10 and Domain-Driven Design (DDD).
-The solution is organized into Bounded Contexts, each containing four layers: `Domain`, `Application`, `Infrastructure`, and `Presentation`.
+## 1. Project Overview & Spec-Anchored Workflow
+`UniTask` is a modular monolith built with .NET 10 and Domain-Driven Design (DDD), organized into Bounded Contexts (`Domain`, `Application`, `Infrastructure`, and `Presentation`).
 
-## 2. Build, Test, and Run Commands
-Always run these commands to verify changes before finishing a task:
-- **Restore & Build:** `dotnet build --configuration Release`
-- **Run Tests:** `dotnet test UniTask.slnx --configuration Release --no-build`
-- **Format Code:** `dotnet format --verify-no-changes`
-- **EF Core Migrations (when persistence is added):** Infrastructure and startup projects are not yet configured. Document a context-specific migration command once they exist; create migrations only when needed, not as a routine verification step.
+- **Spec-Anchored Development:** Every business or contract change starts by updating the source-of-truth specifications in Git, followed by tests, then code[cite: 13].
+- **Hierarchy Rule (Closest Wins):** A local `src/Services/<Context>/AGENTS.md` specializes or overrides rules in this root file for that context.
+- **Source-of-Truth Documents (Always consult before coding):**
+  - `docs/architecture/aggregates-and-invariants.md` — Aggregates, Value Objects, Ubiquitous Language, and invariants.
+  - `docs/architecture/context-map.md` — Subdomain types (Core / Supporting / Generic), Context Map, and ACL boundaries[cite: 4, 8, 15].
+  - `docs/architecture/stateDiagram-applicationLifecycle.md` — Valid lifecycle states and transitions.
+  - `docs/architecture/resilience-policies.md` — Polly v8 timeouts, retry budgets, circuit breaker, and bulkhead limits per integration.
+  - `docs/architecture/adr/` — Architectural Decision Records[cite: 13, 14].
+  - `docs/contracts/openapi-*.yaml` — Contract-First OpenAPI 3.1 specifications[cite: 13, 19, 20].
 
-## 3. Architecture & Domain Boundaries (Strict Rules)
-- **No Cross-Context References:** Modules MUST NOT reference another module's `Domain`, `Application`, or `Infrastructure` projects directly. Communicate only via public contracts/facades or domain events.
-- **Database Isolation:** Each Bounded Context uses its own database schema and `DbContext`. Cross-schema `FOREIGN KEY` constraints and SQL `JOIN`s between different context schemas are strictly prohibited.
-- **Module Microarchitecture:**
-  - **Core Subdomains:** Use Rich Domain Model (Aggregates, Value Objects, Domain Events) with Clean/Hexagonal Architecture. Keep domain entities free of EF Core or serialization attributes.
-  - **Supporting / Generic Subdomains:** Keep simple (Transaction Script / Active Record). Do not overengineer with unnecessary aggregates or ports.
-- **Anti-Corruption Layer (ACL):** External integrations with incompatible or legacy models must be isolated behind a port interface owned by the layer specified in `docs/architecture/context-map.md` (`Domain/Ports` for `IUniversityBillingPort`) and translated inside `Infrastructure/Acl`. Never leak external DTOs or error codes into `Domain` or `Application`.
-- **Shared Kernel:** Only small, immutable Value Objects (e.g., `Money`, `Currency`) belong in `SharedKernel`. Never add entities, aggregates, or external package dependencies there.
-
-## 4. Coding Conventions (.NET / C#)
-- Target `.NET 10` with nullable reference types enabled (`<Nullable>enable</Nullable>`).
-- Use `file-scoped namespaces`, primary constructors where appropriate, and `sealed` by default for classes and records.
-- Prefer strongly-typed IDs and Value Objects over raw primitives (`Guid`, `string`, `decimal`) in Core domains.
-- Domain invariants must be enforced inside Aggregate methods (never rely solely on controller/DTO validation).
-- Throw domain-specific exceptions deriving from the context's base `DomainException` rather than generic `Exception`.
-
-## 5. Testing Guidelines
-- Follow TDD practices for Core domain logic: write/update `xUnit` unit tests covering state transitions and invariants before or alongside implementation.
-- Unit tests for `Domain` MUST NOT require a database, `DbContext`, or network access.
-- Name tests clearly using the convention defined in section 9.
-
-## 6. Documentation & Git Workflow
-- Architectural decisions must be recorded in `docs/architecture/adr/` (see existing ADRs before proposing structural changes).
-- Keep `docs/architecture/` diagrams (Mermaid) in sync if Bounded Context boundaries or integration patterns change.
-- Do not modify existing EF Core migrations that have already been committed; create a new migration instead.
-
-## 7. Project Overview & Architecture Sources
-`UniTask` is a .NET 10 modular monolith designed using Domain-Driven Design (DDD).
-Before implementing or modifying domain logic, aggregates, state transitions, or integrations, ALWAYS consult the source-of-truth architectural documents:
-- `docs/architecture/aggregates-and-invariants.md` — Aggregates, Value Objects, Ubiquitous Language, and domain invariants.
-- `docs/architecture/context-map.md` — Subdomain classification (Core / Supporting / Generic), Bounded Context Map, integration patterns, and ACL boundaries.
-- `docs/architecture/stateDiagram-applicationLifecycle.md` — Valid lifecycle states and transitions for application fulfillment.
-
-## 8. Repository Structure & Gitignore Rules
-The codebase mirrors Bounded Contexts across `src/Services` and `tests` so every module has a clear 1-to-1 test suite:
-
+## 2. Repository Structure
 ```text
 ├── docs/
-│   └── architecture/
-│       ├── aggregates-and-invariants.md
-│       ├── context-map.md
-│       └── stateDiagram-applicationLifecycle.md
+│   ├── architecture/
+│   │   ├── adr/
+│   │   ├── aggregates-and-invariants.md
+│   │   ├── context-map.md
+│   │   ├── resilience-policies.md
+│   │   └── stateDiagram-applicationLifecycle.md
+│   └── contracts/
+│       └── openapi-*.yaml
 ├── src/
 │   └── Services/
 │       ├── ApplicationFulfillment/   # Bounded Context 1
 │       ├── TaskManagement/           # Bounded Context 2
 │       └── UserIdentity/             # Bounded Context 3
 ├── tests/
-│   ├── ApplicationFulfillment/       # Tests mirroring src/Services/ApplicationFulfillment
-│   ├── TaskManagement/               # Tests mirroring src/Services/TaskManagement
-│   └── UserIdentity/                 # Tests mirroring src/Services/UserIdentity
+│   ├── ApplicationFulfillment/       # Mirrors src/Services/ApplicationFulfillment
+│   ├── TaskManagement/               # Mirrors src/Services/TaskManagement
+│   └── UserIdentity/                 # Mirrors src/Services/UserIdentity
 ├── .gitignore
 └── AGENTS.md
 ```
 
-## 9. Testing Conventions (xUnit Only)
-- **Framework Rule:** All unit and integration tests MUST use **xUnit** exclusively. Do NOT introduce NUnit, MSTest, or other test frameworks.
-- **Test Naming Convention:** Name every test method clearly using the format:
-  `Check_<SubjectOrAction>_<ConditionOrInput>_Should<ExpectedResult>`
-  (for example: `Check_Card_Digits_Amount_ShouldReturnCorrectResult`).
-- **Mirror Test Structure:** Place tests under `tests/<Context>/...` to mirror `src/Services/<Context>/...`[cite: 7].
-- **Isolated Domain Tests:** Keep domain unit tests fast and purely in-memory, with no database, `DbContext`, or network dependencies.
+## 3. Build, Test, and Run Commands
+Run these commands to verify changes before finishing any task:
+- **Restore & Build:** `dotnet build --configuration Release`
+- **Run Tests:** `dotnet test UniTask.slnx --configuration Release --no-build`
+- **Format Code:** `dotnet format --verify-no-changes`
+- **EF Core Migrations:** Not yet configured. Once persistence is added, document a context-specific migration command; never modify committed migrations—create a new migration instead.
 
-A task is considered complete ONLY when `dotnet test` reports `Failed: 0`.
-If tests are failed while testing the modules, test can't be changed (removed or modified)
-NEVER invent your own names for domain classes, exceptions, or Value Objects if they are defined in the files above.
+A task is complete ONLY when `dotnet test` reports `Failed: 0`[cite: 14]. Never remove or weaken existing failing tests to make a build pass.
 
-## 10. Agent Workflow Protocol (Plan -> Red -> Green Loop)
-Do not generate entire modules in a single step. Work in small iterations:
-1. **Plan and Contract:** first propose port interfaces (`.Application/Ports`), CQRS contracts, and domain exceptions (`.Domain/Exceptions`).
-2. **RED Phase (TDD):** based on Given-When-Then scenarios or the ACL table in `.md` files, generate unit tests first.
-3. **GREEN Phase:** generate minimal, clean production code that makes the tests pass.
-4. **Verification:** ensure `CleanArchitectureGuardTests` (`NetArchTest.Rules`) pass.
+## 4. Architecture & Domain Boundaries
+- **No Cross-Context References:** Modules MUST NOT reference another module's `Domain`, `Application`, or `Infrastructure` projects[cite: 12, 14]. Communicate only via public contracts (`Open Host Service` + `Published Language` / `OpenAPI 3.1`) or domain events[cite: 8, 16, 19].
+- **Database Isolation (`FF-05`):** Each Bounded Context owns its database schema, `DbContext`, and `__EFMigrationsHistory` table[cite: 16]. Cross-schema `FOREIGN KEY` constraints, SQL `JOIN`s, and direct `SELECT`/`UPDATE` on foreign tables are strictly prohibited[cite: 16, 17]. Reference external aggregates solely by strongly-typed ID and store immutable data snapshots where needed[cite: 17].
+- **Module Microarchitecture:**
+  - **Core Subdomains:** Rich Domain Model (Aggregates, Value Objects, Domain Events) + Clean/Hexagonal Architecture + CQRS[cite: 4, 5].
+  - **Supporting / Generic Subdomains:** Keep simple (Transaction Script / Active Record / Vertical Slice); do not overengineer with unnecessary aggregates[cite: 4, 5].
+- **Shared Kernel:** Only small, immutable, ultra-stable Value Objects (e.g., `Money`, `Currency`) belong in `SharedKernel`[cite: 8]. Never add entities, aggregates, shared contract DTOs, or external packages there[cite: 8, 22].
 
-## 11. Layer Structure and Dependency Rule (Clean Architecture + CQRS)
-Each Bounded Context in `src/Services/<Context>/` consists of 4 projects:
-- `<System>.<Context>.Domain` – business core. ZERO external NuGet packages (no `Microsoft.EntityFrameworkCore*`, `Newtonsoft.Json`, etc.) and zero references to other layers.
-- `<System>.<Context>.Application` – CQRS Commands and Queries (`Features/`), repository interfaces (`I*Repository`), and outbound port interfaces (`Ports/I*Port`). Depends exclusively on `.Domain`.
-- `<System>.<Context>.Infrastructure` – technical implementations: `DbContext`, `IEntityTypeConfiguration<T>`, `Sql*Repository`, and the Anti-Corruption Layer (`Acl/`). All implementation classes in `.Infrastructure` (except `DependencyInjection`) MUST be marked `internal sealed`.
-- `<System>.<Context>.Presentation` – ASP.NET Core Web API controllers delegating to CQRS handlers, HTTP request contracts, and `Program.cs`.
+## 5. Layer Structure & Coding Conventions (.NET 10 / C#)
+- **General C#:** Target `.NET 10` with `<Nullable>enable</Nullable>`, `file-scoped namespaces`, primary constructors where appropriate, and `sealed` by default for classes and records. Never invent names for domain classes, exceptions, or Value Objects already defined in `docs/`.
+- **Clean Architecture & CQRS Layers per Bounded Context:**
+  - `<System>.<Context>.Domain` — Pure business core. ZERO external NuGet packages (no EF Core, JSON, etc.) and zero references to other layers[cite: 3, 12].
+  - `<System>.<Context>.Application` — CQRS Commands/Queries (`Features/`), repository interfaces (`I*Repository`), and outbound port interfaces (`Ports/I*Port`). Depends exclusively on `.Domain`.
+  - `<System>.<Context>.Infrastructure` — `DbContext`, `IEntityTypeConfiguration<T>`, `Sql*Repository`, typed `IHttpClientFactory` + Polly v8 pipelines, and `Acl/`. Mark all implementation classes (except `DependencyInjection`) `internal sealed`[cite: 6, 9, 18, 40].
+  - `<System>.<Context>.Presentation` — Thin Web API controllers delegating to CQRS handlers, global `IExceptionHandler` (RFC 9457), idempotency filters, HTTP request contracts, and `Program.cs`[cite: 29, 31, 33].
 
-## 12. Domain Model Rules (.Domain)
-- NEVER use public setters (`public ... { get; set; }`) in entities, aggregates, or value objects. All state properties must use `private set` or `{ get; }`.
-- Store internal aggregate collections in a private field `private readonly List<T> _items = new();` and expose them externally solely as `IReadOnlyCollection<T>`.
-- Add a parameterless `private` constructor to entities and aggregates for ORM materialization.
-- NEVER use database attributes (`[Key]`, `[Table]`, `[Column]`, `[ForeignKey]`) inside `.Domain`.
-- Signal business invariant violations by throwing a dedicated exception inheriting from `DomainException` (with a unique `Code` in `snake_case`).
+## 6. Domain Model Rules (`.Domain`)
+- **Encapsulation (`FF-02`):** NEVER use `public set` on entities, aggregates, or value objects; use `private set` or `{ get; }`[cite: 12, 15].
+- **Collections & Constructors:** Store collections in `private readonly List<T> _items = new();` exposed as `IReadOnlyCollection<T>`. Include a parameterless `private` constructor for ORM materialization.
+- **Persistence Ignorance (`FF-01`):** NEVER use EF Core or serialization attributes (`[Key]`, `[Table]`, `[Column]`, `[ForeignKey]`) in `.Domain`[cite: 3, 12].
+- **Types & Invariants:** Prefer strongly-typed IDs and Value Objects over raw primitives in Core domains[cite: 17, 21]. Enforce invariants inside Aggregate methods and signal violations via dedicated exceptions inheriting from `DomainException` with a unique `snake_case` `Code` (e.g., `cart.value_too_low`)[cite: 31, 33].
 
-## 13. Anti-Corruption Layer (ACL) and EF Core Rules (.Infrastructure)
-- Place the domain port (`I*Port`) in `.Application/Ports/`. Its signature may use ONLY types from our domain model.
-- Keep foreign data structures (`*_DTO` from external systems, error codes, text formats) inside `.Infrastructure/Acl/` as `internal sealed` types.
-- Separate ACL responsibilities into 3 `internal sealed` classes: `*Translator` (pure transformation with `CultureInfo.InvariantCulture`, zero network I/O), `*Adapter` (I/O communication), and `*Acl` (facade implementing `I*Port`).
-- In EF Core repositories, methods loading an aggregate for modification (`GetByIdAsync`) must NEVER use `.AsNoTracking()` and must include child collections (`.Include(...)`). Use `.AsNoTracking()` exclusively in read-only Query handlers.
+## 7. Persistence & Anti-Corruption Layer (`.Infrastructure`)
+- **CQRS Read/Write Separation:**
+  - **Write Path (`GetByIdAsync` for mutation):** Load the full aggregate graph with change tracking enabled (NEVER `.AsNoTracking()`) and `.Include(...)` child collections[cite: 6].
+  - **Read Path (Query handlers):** Bypass domain aggregates completely, use `.AsNoTracking()`, and project directly in SQL (`.Select(x => new ...Dto(...))`) to flat read DTOs[cite: 6].
+- **Anti-Corruption Layer (`FF-04`):** Place port interfaces (`I*Port`) in `.Domain/Ports/` or `.Application/Ports/` per `context-map.md`, using only our domain types in signatures[cite: 9]. Trap foreign DTOs (`*_DTO`) and error codes inside `.Infrastructure/Acl/` using 3 `internal sealed` classes[cite: 9]:
+  - `*Translator`: pure mapping using `CultureInfo.InvariantCulture` (zero I/O)[cite: 9].
+  - `*Adapter`: I/O communication via `IHttpClientFactory`[cite: 9, 18].
+  - `*Acl`: facade implementing `I*Port`[cite: 9].
+- **Tolerant Reader (Consumer Side):** Never share contract `.dll` assemblies across contexts[cite: 22]. Deserialize responses into minimal `internal sealed record` DTOs, ignore unknown JSON fields, and map foreign status strings defensively with a fallback (never throw `JsonException` on unknown enum values)[cite: 22].
+
+## 8. Contract-First REST API & Error Handling (`.Presentation` & `docs/contracts/`)
+- **Contract-First OpenAPI 3.1:** Author `docs/contracts/openapi-<service>.yaml` before writing controllers or HTTP clients[cite: 19]. Encode Value Object rules directly in JSON Schema Draft 2020-12 (`format: uuid`, `pattern`, `minimum`, `maximum`, `enum`) and set `additionalProperties: false` on all Request schemas[cite: 20, 21, 22].
+- **Versioning & Compatibility:** Use URI path versioning (`/api/v1/...`)[cite: 23]. Never rename/remove response fields, change types, add new `required` request fields, or tighten validation inside `/v1/`[cite: 22]. Retire old endpoints via `Deprecation: true` and `Sunset` headers (RFC 8594)[cite: 23].
+- **Business Intent Resources (RMM Level 2+):** Never expose anemic `PUT` endpoints that let clients overwrite aggregate state directly[cite: 26, 27]. Model state transitions as noun sub-resources matching Ubiquitous Language commands (e.g., `POST /api/v1/applications/{id}/submission`, `POST /api/v1/orders/{id}/cancellation`)[cite: 27].
+- **Idempotency (RFC 9110):** Require the `Idempotency-Key` header (`format: uuid`) on state-mutating `POST` commands[cite: 20, 28, 29]. Persist `(Key, RequestHash, StatusCode, ResponseBody)` in the same SQL transaction as the domain mutation[cite: 29]. Return cached responses on identical retries; reject payload mismatches with `409`/`422` (`IdempotencyKeyConflictException`)[cite: 29].
+- **RFC 9457 Problem Details & Tracing:**
+  - Never return `200 OK` for failures, custom ad-hoc error payloads, or raw stack traces[cite: 30].
+  - Controllers and handlers MUST NOT use `try/catch` for HTTP mapping[cite: 33]. Handle exceptions centrally via `IExceptionHandler` and `IProblemDetailsService` returning `application/problem+json` with `type`, `title`, `status`, `detail`, `instance`, `errorCode` (`DomainException.Code`), and W3C `traceId` (`Activity.Current?.TraceId`), propagating `traceparent` across `IHttpClientFactory`[cite: 31, 33].
+  - **Status Code Mapping:** `400` (malformed JSON / invalid Value Object), `401`/`403` (auth/permissions), `404` (`*.not_found`), `409` (`*.state_conflict` / optimistic concurrency `ETag`), `422` (default `DomainException` invariant violation or `Idempotency-Key` payload conflict), `503`/`504` (downstream dependency failure / open circuit)[cite: 29, 32, 33].
+
+## 9. Cross-Context Resilience & Fault Tolerance (`.Infrastructure`)
+- **HTTP Clients:** Always use `IHttpClientFactory` with Docker/Kubernetes service DNS names (never `new HttpClient()`, `localhost`, or the default 100s timeout)[cite: 18, 34, 35].
+- **Polly v8 Pipeline Order (Outer -> Inner):** Configure pipelines per `docs/architecture/resilience-policies.md` in strict order[cite: 39, 40]:
+  1. **Fallback / Mapping:** Catches `BrokenCircuitException` or final timeout for graceful degradation (Stale Cache, Store & Forward background queue, or `503` + `Retry-After`)[cite: 38, 39].
+  2. **Total Request Timeout:** Caps total budget across all attempts (`TotalTimeout > (MaxRetryAttempts + 1) * AttemptTimeout + Backoff`)[cite: 36, 39, 40].
+  3. **Retry (Exponential Backoff + Decorrelated Jitter):** Retries ONLY transient errors (`503`, `504`, `408`, `429`, network failures) on idempotent calls (or `POST` with `Idempotency-Key`)[cite: 36, 39]. NEVER retry `400`, `401`, `403`, `404`, `409`, or `422`[cite: 32, 36, 40].
+  4. **Circuit Breaker + Bulkhead:** Isolates concurrency/connection pools per dependency and fails fast (`0 ms`) when failure thresholds are breached[cite: 37, 38, 39].
+  5. **Attempt Timeout:** Cuts individual hanging attempts early (e.g., `2.0 s`–`3.0 s`) so Retry can trigger[cite: 39, 40].
+
+## 10. Agent Workflow & Testing Conventions (`xUnit` Only)
+- **Iteration Protocol (Plan -> Red -> Green):**
+  1. **Plan & Contract:** Update `docs/contracts/openapi-*.yaml` and propose ports (`.Application/Ports` or `.Domain/Ports`), CQRS contracts, and `DomainException` types[cite: 15, 19].
+  2. **RED Phase:** Write `xUnit` tests first from Given-When-Then scenarios, OpenAPI schemas, and ACL tables (no NUnit/MSTest). Do not write tautological mock-mirroring tests; every domain invariant test must fail if its `throw` or `private set` guard is mutated[cite: 15].
+  3. **GREEN Phase:** Write minimal production code to pass tests[cite: 15].
+  4. **Verification:** Run `CleanArchitectureGuardTests` (`NetArchTest.Rules`) and all `xUnit` tests[cite: 15].
+- **Test Naming & Isolation:** Mirror `src/Services/<Context>/...` under `tests/<Context>/...` and name every test `Check_<SubjectOrAction>_<ConditionOrInput>_Should<ExpectedResult>`. Domain tests must be purely in-memory with zero database or network dependencies.
+- **Required Fitness Functions (`FF-01..FF-06`):**
+  - `FF-01`: `.Domain` has zero ORM/infrastructure/external dependencies[cite: 3, 12].
+  - `FF-02`: No `public set` on domain entities, aggregates, or Value Objects[cite: 12, 15].
+  - `FF-03` / `FF-04`: Layer dependency rules and ACL isolation (`*_DTO` types are `internal` to `.Infrastructure/Acl`)[cite: 9, 15].
+  - `FF-05`: No cross-context references or cross-schema foreign keys[cite: 14, 17].
+  - `FF-06`: Consumer-Driven Contract (CDC) tests verified against `openapi-*.yaml`[cite: 24].
+- **Deterministic Fault-Injection Tests:** Every resilient HTTP adapter must include `xUnit` tests using a scripted `HttpMessageHandler` verifying retry counts, `Idempotency-Key` preservation, non-retry on `400`/`422`, and circuit-breaker fail-fast behavior[cite: 40].
